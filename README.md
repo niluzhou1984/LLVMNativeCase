@@ -14,7 +14,7 @@
    
 		git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
 
-   * 用localDirName/cygwinInstallFix 下面的run.bat和 setup-x86.exe替换cygwinLocal下的同名文件
+   * 用localDirName/cygwinInstallFix 下面的run.bat和 setup-x86.exe替换**cygwinLocal**下的同名文件
 
    * 运行里面的run.bat自动安装cygwin
 
@@ -23,7 +23,7 @@
 ##Mac的环境搭建
 
 
-* [Crossbridge Sdk下载](http://sourceforge.net/projects/crossbridge-community/files/15.0.0/CrossBridge_15.0.0.3.dmg/download) (sdk中包括了编译到avm需要用到的编译工具 库和头文件) 解压到 CrossBridgeSDK .
+* [Crossbridge Sdk下载](http://sourceforge.net/projects/crossbridge-community/files/15.0.0/CrossBridge_15.0.0.3.dmg/download) (sdk中包括了编译到avm需要用到的编译工具 库和头文件) 解压到目录**CrossBridgeSDK**(同windows下的cygWinLocal目录，只是mac下不需要装cygwin,压缩包里只包含了crossbridge的sdk).
 
 	我们把路径 CrossBridgeSDK/sdk 称为**SDK_PATH** ,后面的配置文件将会用到这个路径
 * 获取源代码
