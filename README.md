@@ -23,8 +23,9 @@
 
 
 * [Crossbridge Sdk下载](http://sourceforge.net/projects/crossbridge-community/files/15.0.0/CrossBridge_15.0.0.3.dmg/download) (sdk中包括了编译到avm需要用到的编译工具 库和头文件) 解压,里面包含了sdk目录，这个目录的路径就是后面FLASCC变量的值，我们称这个路径为SDK_PATH
-* 
-	git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
+* 获取源代码
+
+		git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
 
 ##以下Windwos和Mac相同
 
