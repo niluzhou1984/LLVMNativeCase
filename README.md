@@ -7,10 +7,12 @@
    * Windows需要下载Cygwin+CrossBridgeSDK
 
    	[SDK](http://sourceforge.net/projects/crossbridge-community/files/15.0.0/CrossBridge_15.0.0.3.zip/download)
+    
+	解压到**cygWinLocal**
 
-   * 解压到**cygWinLocal**
-
-	git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
+   * 获取源代码
+   
+		git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
 
    * 用localDirName/cygwinInstallFix 下面的run.bat和 setup-x86.exe替换cygwinLocal下的同名文件
 
