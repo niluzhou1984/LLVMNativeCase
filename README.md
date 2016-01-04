@@ -18,11 +18,14 @@
 
    * 运行里面的run.bat自动安装cygwin
 
-   设SDK_PATH的值为cygwinLocal/sdk 目录的路径
+   
+	我们把路径cygwinLocal/sdk 称为**SDK_PATH** ,后面的配置文件将会用到这个路径
 ##Mac的环境搭建
 
 
-* [Crossbridge Sdk下载](http://sourceforge.net/projects/crossbridge-community/files/15.0.0/CrossBridge_15.0.0.3.dmg/download) (sdk中包括了编译到avm需要用到的编译工具 库和头文件) 解压,里面包含了sdk目录，这个目录的路径就是后面FLASCC变量的值，我们称这个路径为SDK_PATH
+* [Crossbridge Sdk下载](http://sourceforge.net/projects/crossbridge-community/files/15.0.0/CrossBridge_15.0.0.3.dmg/download) (sdk中包括了编译到avm需要用到的编译工具 库和头文件) 解压到 CrossBridgeSDK .
+
+	我们把路径 CrossBridgeSDK/sdk 称为**SDK_PATH** ,后面的配置文件将会用到这个路径
 * 获取源代码
 
 		git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
@@ -32,7 +35,7 @@
 	
 
 
-* 修改localDirName目录下的**MakefileCfg.mk** 设置FLASCC为SDK_PATH，使得Makefile运行的时候能找到正确版本的gcc
+* 修改localDirName目录下的**MakefileCfg.mk** 设置FLASCC为**SDK_PATH**，使得Makefile运行的时候能找到正确版本的gcc
 
 * 用文件localDirName/sdkFix/malloc.h 覆盖 SDK_PATH/usr/include/malloc.h
 
