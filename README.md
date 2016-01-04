@@ -31,11 +31,11 @@
 * 获取源代码
 
 		git clone https://github.com/niluzhou1984/CrossbridgeBadCase.git localDirName
-##其他软件包需求
+####其他软件包需求
    * 64位的jvm
    * make
    
-###以下Windwos和Mac相同
+##以下Windwos和Mac相同
 
 	
 
