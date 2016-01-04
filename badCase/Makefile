@@ -68,7 +68,8 @@ FIXED_LFLAGS_TEST += $(addprefix -L, $(LPATH_TEST))
 FIXED_LFLAGS_TEST += -Wl,--start-group $(addprefix -l, $(FIXED_LIBRARIES_TEST)) -Wl,--end-group
 
 
-
+clean:
+	rm *.exe
 
 all:bad fixed
 bad:
