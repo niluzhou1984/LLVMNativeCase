@@ -22,6 +22,7 @@
 
    
 	我们把路径cygwinLocal/sdk 称为**SDK_PATH** ,后面的配置文件将会用到这个路径
+
 ##Mac的环境搭建
 
 
