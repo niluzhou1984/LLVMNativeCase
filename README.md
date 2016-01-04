@@ -34,7 +34,8 @@
 ##其他软件包需求
    * 64位的jvm
    * make
-##以下Windwos和Mac相同
+   
+###以下Windwos和Mac相同
 
 	
 
