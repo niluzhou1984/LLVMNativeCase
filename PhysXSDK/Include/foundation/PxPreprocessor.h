@@ -86,8 +86,12 @@ Platform define
 #		define PX_WINMODERN
 #	endif
 #elif defined PX_GNUC
-#   ifdef __CELLOS_LV2__
-#	define PX_PS3
+#	ifdef __CROSSBRIDGE__
+#		define PX_AVM
+#       define PX_X86
+#		define PX_VMX
+#	elif defined(__CELLOS_LV2__)
+#		define PX_PS3
 #		define PX_VMX
 #   elif defined(__arm__)
 #		define PX_ARM
@@ -116,16 +120,19 @@ Platform define
 #       define PX_PPC
 #   elif defined(__ppc64__)
 #       define PX_PPC
-#	define PX_PPC64
-#	elif defined(__CROSSBRIDGE__)
-#		define PX_AVM
-#       define PX_X86
-#		define PX_VMX
+#		define PX_PPC64
 #   else
 #	error "Unknown platform"
 #   endif
 #	if defined(ANDROID)
 #   	define PX_ANDROID
+#   	define PX_UNIX
+#	elif defined(__CYGWIN__)
+#		if defined(__CROSSBRIDGE__)
+#			define PX_CROSSBRIDGE
+#		endif
+#   	define PX_CYGWIN
+#   	define PX_LINUX
 #   	define PX_UNIX
 #	elif defined(__linux__)
 #   	define PX_LINUX
@@ -138,13 +145,6 @@ Platform define
 #		else
 #			define PX_OSX
 #		endif
-#	elif defined(__CYGWIN__)
-#		if defined(__CROSSBRIDGE__)
-#			define PX_CROSSBRIDGE
-#		endif
-#   	define PX_CYGWIN
-#   	define PX_LINUX
-#   	define PX_UNIX
 #	endif
 #elif defined PX_GHS
 #	define PX_WIIU
@@ -365,7 +365,7 @@ template <class T> PX_CUDA_CALLABLE PX_INLINE void PX_UNUSED(T const&) {}
 
 struct PxPackValidation { char _; long long a; };
 
-#if !defined(PX_APPLE)
+#if !defined(PX_APPLE) && !defined(PX_CROSSBRIDGE)
 PX_COMPILE_TIME_ASSERT(PX_OFFSET_OF(PxPackValidation, a) == 8);
 #endif
 

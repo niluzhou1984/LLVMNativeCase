@@ -44,7 +44,7 @@ MutexImpl::MutexImpl()
 	pthread_mutexattr_t attr;
 	pthread_mutexattr_init(&attr);
 	pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-#if !defined(PX_ANDROID)
+#if !defined(PX_ANDROID) && !defined(PX_CROSSBRIDGE) && !defined(__CYGWIN__)
 	// mimic default windows behavior where applicable
 	pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
 #endif

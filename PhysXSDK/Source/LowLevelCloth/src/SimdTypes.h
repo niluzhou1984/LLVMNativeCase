@@ -15,7 +15,7 @@
 #include <math.h>
 
 // ps4 compiler defines _M_X64 without value
-#if ( (defined _M_IX86) || (defined _M_X64) ||  (defined __i386__) || defined( __x86_64__))
+#if ( (defined _M_IX86) || (defined _M_X64) ||  (defined __i386__) || defined( __x86_64__)) && !defined(PX_AVM)
 #define NVMATH_SSE2 1
 #else
 #define NVMATH_SSE2 0
