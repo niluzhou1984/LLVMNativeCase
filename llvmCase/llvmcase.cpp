@@ -29,13 +29,11 @@ using namespace physx::shdfnd;
 using namespace physx::shdfnd::aos;
 using namespace physx::Gu;
 
-
 PxDefaultErrorCallback				defaultErrorCallback;
 PxDefaultAllocator					defaultAllocatorCallback;
 
 void gjkTest()
 {
-
 	PxFoundation* foundation = PxCreateFoundation(PX_PHYSICS_VERSION, defaultAllocatorCallback, defaultErrorCallback);
 	if(!foundation)
 	{
@@ -135,7 +133,7 @@ void gjkTest()
 	const Vec3V worldDir = V3LoadU(unitDir);
 	const FloatV dist = FLoad(distance);
 	const Vec3V dir =convexPose.rotateInv(V3Neg(V3Scale(worldDir, dist)));
-
+	
 	FloatV toi;
 	Vec3V closestA, normal;
 	printf("Start GJK Test\n");

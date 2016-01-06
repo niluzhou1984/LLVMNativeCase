@@ -1,9 +1,8 @@
 #!/usr/bin/make
-include ../MakefileCfg.mk
-
+export LD_LIBRARY_PATH :=../PhysXSDK/Lib/cygwin32_llvm: $(LD_LIBRARY_PATH)
 
 LPATH_TEST :=
-LPATH_TEST += ./../PhysXSDK/Lib/crossbridge
+LPATH_TEST += ../PhysXSDK/Lib/cygwin32_llvm
 
 IPATH_TEST :=
 IPATH_TEST += ../PhysXSDK/Include
@@ -29,50 +28,50 @@ IPATH_TEST += ../PhysXSDK/Include/common
 IPATH_TEST += ../PhysXSDK/Source/PhysXVehicle/src
 
 LIBRARIES_TEST :=
+LIBRARIES_TEST += PhysX3Common_x86
+LIBRARIES_TEST += PhysXProfileSDK
 LIBRARIES_TEST += LowLevel
 LIBRARIES_TEST += LowLevelCloth
-LIBRARIES_TEST += PhysX3_x86
-LIBRARIES_TEST += PhysX3CharacterKinematic_x86
-LIBRARIES_TEST += PhysX3Common_x86
-LIBRARIES_TEST += PhysX3Cooking_x86
-LIBRARIES_TEST += PhysX3Extensions
-LIBRARIES_TEST += PhysXProfileSDK
 LIBRARIES_TEST += PxTask
+LIBRARIES_TEST += PhysX3Extensions
 LIBRARIES_TEST += SceneQuery
 LIBRARIES_TEST += SimulationController
+LIBRARIES_TEST += PhysX3Cooking_x86
+LIBRARIES_TEST += PhysX3_x86
+LIBRARIES_TEST += PhysX3CharacterKinematic_x86
 
 DEFINES_TEST += __CYGWIN__ __CROSSBRIDGE__ NDEBUG  
 CFLAGS_TEST :=
 CFLAGS_TEST += $(addprefix -D, $(DEFINES_TEST))
-CFLAGS_TEST += -pthread -Wno-write-strings -Wno-trigraphs -fexceptions
+CFLAGS_TEST += -fno-rtti  -fexceptions   -emit-llvm
 CFLAGS_TEST += $(addprefix -I, $(IPATH_TEST))
-LFLAGS_TEST :=
-LFLAGS_TEST += $(addprefix -L, $(LPATH_TEST))
-LFLAGS_TEST += -Wl,--start-group $(addprefix -l, $(LIBRARIES_TEST)) -Wl,--end-group
+
+LFLAGS_TEST :=  $(addsuffix .a, $(addprefix $(LPATH_TEST)/lib, $(LIBRARIES_TEST))) 
+
+BUILD_DIR=./build
 
 
-FIXED_LIBRARIES_TEST :=
-FIXED_LIBRARIES_TEST += LowLevel
-FIXED_LIBRARIES_TEST += LowLevelCloth
-FIXED_LIBRARIES_TEST += PhysX3_x86
-FIXED_LIBRARIES_TEST += PhysX3CharacterKinematic_x86
-FIXED_LIBRARIES_TEST += PhysX3CommonFixed_x86
-FIXED_LIBRARIES_TEST += PhysX3Cooking_x86
-FIXED_LIBRARIES_TEST += PhysX3Extensions
-FIXED_LIBRARIES_TEST += PhysXProfileSDK
-FIXED_LIBRARIES_TEST += PxTask
-FIXED_LIBRARIES_TEST += SceneQuery
-FIXED_LIBRARIES_TEST += SimulationController
-FIXED_LFLAGS_TEST :=
-FIXED_LFLAGS_TEST += $(addprefix -L, $(LPATH_TEST))
-FIXED_LFLAGS_TEST += -Wl,--start-group $(addprefix -l, $(FIXED_LIBRARIES_TEST)) -Wl,--end-group
+LIB_OBJS := $(LIBRARIES_TEST)
 
 
 clean:
-	rm *.exe
+	rm  -rf $(BUILD_DIR)
+	rm *.bc *.exe
 
-all:bad fixed
-bad:
-	"$(FLASCC)/usr/bin/g++" $(CFLAGS_TEST)  badcase.cpp  $(LFLAGS_TEST)  -o badCase.exe
-fixed:
-	"$(FLASCC)/usr/bin/g++" $(CFLAGS_TEST)  badcase.cpp  $(FIXED_LFLAGS_TEST)  -o fixedCase.exe
+all: pregenerate generate_bc generate_exe
+
+pregenerate:
+	mkdir -p $(BUILD_DIR)
+	
+generate_bc:
+	"../llvm/bin/llvm-g++"  -c $(CFLAGS_TEST) llvmcase.cpp  -o $(BUILD_DIR)/llvmcase.cpp.o
+	"../llvm/bin/llvm-link" -o llvmcase.bc $(BUILD_DIR)/llvmcase.cpp.o $(LFLAGS_TEST)
+	
+generate_exe:$(LIB_OBJS)
+	"../llvm/bin/llc" -filetype=obj $(BUILD_DIR)/llvmcase.cpp.o -o $(BUILD_DIR)/llvmcase.o
+	"../llvm/bin/llvm-g++"  $(addsuffix .o, $(addprefix $(BUILD_DIR)/lib, $(LIB_OBJS))) $(BUILD_DIR)/llvmcase.o -o llvm.exe
+	
+
+$(LIB_OBJS):
+	"../llvm/bin/llc"  $(addsuffix .a, $(addprefix $(LPATH_TEST)/lib, $@)) -o $(addsuffix .s, $(addprefix $(BUILD_DIR)/lib, $@))
+	"../llvm/bin/llvm-g++" -c $(addsuffix .s, $(addprefix $(BUILD_DIR)/lib, $@)) -o $(addsuffix .o, $(addprefix $(BUILD_DIR)/lib, $@))
