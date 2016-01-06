@@ -16,6 +16,7 @@
 ##运行
 
 在localDirName/llvmCase, 有两种方式运行 执行
+
 	sh runcase.sh  //执行llvm bc文件
 	./llvm.exe     //执行二进制文件 
 
