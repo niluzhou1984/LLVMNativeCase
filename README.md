@@ -11,7 +11,7 @@
 ###分开编译
 
 	step1 sh localDirName/PhysXSDK/build.sh
-	step2 sh localDirName/BadCase/build.sh
+	step2 sh localDirName/llvmCase/build.sh
 
 ##运行
 
@@ -21,6 +21,29 @@
 	./llvm.exe     //执行二进制文件 
 
 
+#Test Case For Physx Under llvm-2.9
+
+##Compile
+
+##Package Dependencies For Cygwin
+
+*gcc-g++ compiler
+
+###On-key Compilation of All
+
+	sh localDirName/rebuildAll.sh
+
+###Compilation of Physx And Test Case
+
+	step1 sh localDirName/PhysXSDK/build.sh
+	step2 sh localDirName/llvmCase/build.sh
+
+##Run
+
+There are two different ways to run test case  under directory localDirName/llvmCase：
+
+	sh runcase.sh  //run llvm bytecode 
+	./llvm.exe     //run binary executable file
 
  
 
